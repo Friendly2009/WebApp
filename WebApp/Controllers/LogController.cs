@@ -12,13 +12,11 @@ namespace WebApp.Controllers
 			_logger = logger;
 			_context = context;
 		}
-		public ActionResult AuthorizationPage()
+		public ActionResult Authorization()
 		{
-			var obj = _context.users.Find(1);
-			ViewBag.User = obj.Username;
 			return View();
 		}
-		public ActionResult RegistrationPage()
+		public ActionResult Registration()
 		{
 			return View();
 		}

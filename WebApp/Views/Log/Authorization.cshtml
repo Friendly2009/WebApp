@@ -1,1 +1,22 @@
-﻿<h1>awd</h1>
+﻿@model User
+<div class="text-center">
+	<h1>Authorization</h1>
+</div>
+<form class="row justify-content-center" asp-action="LogUp" asp-controller="Log" method="get">
+    <div class="col-6 m-3">
+        <input asp-for="Username" placeholder="Login" class="form-control" type="text" />
+        <span asp-validation-for="Username" class="text-danger"></span>
+    </div>
+    <div class="col-6 m-3">
+        <input asp-for="Password" placeholder="Password" class="form-control" type="password" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+    <div class="col-6 m-3">
+        <input asp-for="Email" placeholder="Email" class="form-control" type="email" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="col-6 m-3 text-center">
+        <button type="submit" class="btn btn-outline-dark">Log Up</button>
+    </div>
+</form>
+
