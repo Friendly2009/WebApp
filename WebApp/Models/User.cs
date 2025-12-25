@@ -6,11 +6,11 @@ namespace WebApp.Models
 	{
 		[Key]
 		public int Id { get; set; }
-		[Required]
+		[Required(ErrorMessage = "Enter логин")]
 		public string Username { get; set; }
-		[Required]
+		[Required(ErrorMessage = "Enter Пароль")]
 		public string Password { get; set; }
-		[Required]
+		[Required(ErrorMessage = "Enter email")]
 		public string Email { get; set; }
 
 	}
