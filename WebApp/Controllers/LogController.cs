@@ -24,7 +24,7 @@ namespace WebApp.Controllers
 			return View();
 		}
 		[HttpGet]
-		public ActionResult LogIn(User model)
+		public ActionResult LogIn(ModelAuthorization model)
 		{
 			if (ModelState.IsValid)
 			{
@@ -35,7 +35,8 @@ namespace WebApp.Controllers
 						return RedirectToAction("Index", "Account", model);
 					}
 				}
-				return RedirectToAction("Index", "Home");
+				TempData["Message"] = "Login or password incorrect";
+				return View("Authorization", model);
 			}
 			return View("Authorization", model);
 		}

@@ -1,4 +1,4 @@
-﻿@model User;
+﻿@model ModelAuthorization;
 <div class="text-center">
 	<h1>Authorization</h1>
 </div>
@@ -11,14 +11,16 @@
         <input asp-for="Password" placeholder="Password" class="form-control" type="password" />
         <span asp-validation-for="Password" class="text-danger"></span>
     </div>
-    <div class="col-6 m-3">
-        <input asp-for="Email" placeholder="Email" class="form-control" type="email" />
-        <span asp-validation-for="Email" class="text-danger"></span>
-    </div>
     <div class="col-6 m-3 text-center">
         <button type="submit" class="btn btn-outline-dark">Log In</button>
     </div>
 </form>
+@if (TempData["Message"] != null)
+{
+    <script>
+        alert('@TempData["Message"]');
+    </script>
+}
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
