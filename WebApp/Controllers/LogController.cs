@@ -32,7 +32,7 @@ namespace WebApp.Controllers
 				{
 					if(user.Username == model.Username && user.Password == model.Password)
 					{
-						return RedirectToAction("Index", "Account", model);
+						return RedirectToAction("Index", "Account", user);
 					}
 				}
 				TempData["Message"] = "Login or password incorrect";
