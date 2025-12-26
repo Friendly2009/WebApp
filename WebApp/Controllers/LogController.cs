@@ -13,7 +13,7 @@ namespace WebApp.Controllers
 		{
 			_logger = logger;
 			_context = context;
-			UsersTable = _context.users;
+			UsersTable = _context.user;
 		}
 		public ActionResult Authorization()
 		{
@@ -30,7 +30,7 @@ namespace WebApp.Controllers
 			{
 				foreach (var user in UsersTable)
 				{
-					if(user.Username == model.Username && user.Password == model.Password)
+					if(user.login == model.login && user.Password == model.Password)
 					{
 						return RedirectToAction("Index", "Account", user);
 					}
