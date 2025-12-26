@@ -41,6 +41,19 @@
 Спасибо, что заглянули в мой проект по регистрации и авторизации на ASP.NET Core! Надеюсь, он окажется полезным для начинающих! 😊
 ## База данных 
 - для запуска сайта необходимо создать базу данных так как у разработчика она создана локально
+- ```
+  CREATE SCHEMA IF NOT EXISTS `MyServices` DEFAULT CHARACTER SET utf8 ;
+  USE `MyServices` ;
+
+  CREATE TABLE IF NOT EXISTS `MyServices`.`user` (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `login` VARCHAR(45) NOT NULL,
+    `password` VARCHAR(45) NOT NULL,
+    `email` varchar(255) NOT NULL,
+    PRIMARY KEY (`id`))
+  ENGINE = InnoDB;
+  select * from user;
+  ```
 
 
 
