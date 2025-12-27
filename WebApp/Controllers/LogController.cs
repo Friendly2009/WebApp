@@ -40,6 +40,25 @@ namespace WebApp.Controllers
 			}
 			return View("Authorization", model);
 		}
-
+		[HttpPost]
+		public ActionResult LogUp(User model)
+		{
+			if(ModelState.IsValid)
+			{
+				foreach(User user in UsersTable)
+				{
+					if(model.Username == user.Username)
+					{
+						TempData["Message"] = "This user already exist";
+						return RedirectToAction("Registration", model);
+					}
+				}
+				UsersTable.Add(model);
+				_context.SaveChanges();
+				TempData["Message"] = "your user has been registered";
+				return RedirectToAction("Index", "Account", model);
+			}
+			return RedirectToAction("Registration", model);
+		}
 	}
 }
