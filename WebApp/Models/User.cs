@@ -7,7 +7,7 @@ namespace WebApp.Models
 		[Key]
 		public int Id { get; set; }
 		[Required(ErrorMessage = "Enter логин")]
-		public string Username { get; set; }
+		public string login { get; set; }
 		[Required(ErrorMessage = "Enter Пароль")]
 		public string Password { get; set; }
 		[Required(ErrorMessage = "Enter email")]
