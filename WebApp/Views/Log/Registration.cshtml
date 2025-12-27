@@ -1,9 +1,10 @@
-﻿<div class="text-center">
+﻿@model User;
+<div class="text-center">
 	<h1>Registration</h1>
     <form class="row justify-content-center" asp-action="LogUp" asp-controller="Log" method="post">
         <div class="col-6 m-3">
-            <input asp-for="Username" placeholder="Login" class="form-control" type="text" />
-            <span asp-validation-for="Username" class="text-danger"></span>
+            <input asp-for="login" placeholder="Login" class="form-control" type="text" />
+            <span asp-validation-for="login" class="text-danger"></span>
         </div>
         <div class="col-6 m-3">
             <input asp-for="Password" placeholder="Password" class="form-control" type="password" />

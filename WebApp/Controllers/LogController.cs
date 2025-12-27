@@ -47,7 +47,7 @@ namespace WebApp.Controllers
 			{
 				foreach(User user in UsersTable)
 				{
-					if(model.Username == user.Username)
+					if(model.login == user.login)
 					{
 						TempData["Message"] = "This user already exist";
 						return RedirectToAction("Registration", model);
