@@ -16,6 +16,7 @@ namespace WebApp.Controllers
 		}
 		public IActionResult Index()
 		{
+			ViewData["HeaderNav"] = true;
 			var model = UsersTable.Find(HttpContext.Session.GetInt32("id"));
 			return View(model);
 		}

@@ -6,21 +6,21 @@ namespace WebApp.Controllers
 {
 	public class LogController : Controller
 	{
-		private readonly ILogger<HomeController> _logger;
 		private readonly ConfigurationDataBase _context;
 		DbSet<User> UsersTable;
-		public LogController(ILogger<HomeController> logger, ConfigurationDataBase context)
+		public LogController(ConfigurationDataBase context)
 		{
-			_logger = logger;
 			_context = context;
 			UsersTable = _context.users;
 		}
 		public ActionResult Authorization()
 		{
+			TempData["HeaderNav"] = false;
 			return View();
 		}
 		public ActionResult Registration()
 		{
+			TempData["HeaderNav"] = false;
 			return View();
 		}
 		[HttpGet]
@@ -33,12 +33,15 @@ namespace WebApp.Controllers
 					if(user.login == model.login && user.Password == model.Password)
 					{
 						HttpContext.Session.SetInt32("id",user.Id);
+						TempData["HeaderNav"] = true;
 						return RedirectToAction("Index", "Account");
 					}
 				}
 				TempData["Message"] = "Login or password incorrect";
+				TempData["HeaderNav"] = false; 
 				return View("Authorization", model);
 			}
+			TempData["HeaderNav"] = false;
 			return View("Authorization", model);
 		}
 		[HttpPost]
@@ -51,6 +54,7 @@ namespace WebApp.Controllers
 					if(model.login == user.login)
 					{
 						TempData["Message"] = "This user already exist";
+						TempData["HeaderNav"] = false;
 						return RedirectToAction("Registration", model);
 					}
 				}
@@ -67,9 +71,16 @@ namespace WebApp.Controllers
 				UsersTable.Add(NewUser);
 				_context.SaveChanges();
 				TempData["Message"] = "your user has been registered";
+				TempData["HeaderNav"] = true;
 				return RedirectToAction("Index", "Account", NewUser);
 			}
+			TempData["HeaderNav"] = false;
 			return RedirectToAction("Registration", model);
+		}
+		public IActionResult LogOut()
+		{
+			TempData["HeaderNav"] = false;
+			return RedirectToAction("Index","Home");
 		}
 	}
 }
