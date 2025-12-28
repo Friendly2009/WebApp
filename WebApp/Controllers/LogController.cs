@@ -13,7 +13,7 @@ namespace WebApp.Controllers
 		{
 			_logger = logger;
 			_context = context;
-			UsersTable = _context.user;
+			UsersTable = _context.users;
 		}
 		public ActionResult Authorization()
 		{
@@ -41,7 +41,7 @@ namespace WebApp.Controllers
 			return View("Authorization", model);
 		}
 		[HttpPost]
-		public ActionResult LogUp(User model)
+		public ActionResult LogUp(ModelAuthorization model)
 		{
 			if(ModelState.IsValid)
 			{
@@ -53,10 +53,20 @@ namespace WebApp.Controllers
 						return RedirectToAction("Registration", model);
 					}
 				}
-				UsersTable.Add(model);
+				User NewUser = new User{
+					login = model.login,
+					Password = model.Password,
+					Email = "",
+					phone = "",
+					aboutMe = "",
+					image = new byte[255],
+					name = "",
+					surname = "",
+				};
+				UsersTable.Add(NewUser);
 				_context.SaveChanges();
 				TempData["Message"] = "your user has been registered";
-				return RedirectToAction("Index", "Account", model);
+				return RedirectToAction("Index", "Account", NewUser);
 			}
 			return RedirectToAction("Registration", model);
 		}

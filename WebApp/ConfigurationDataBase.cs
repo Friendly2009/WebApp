@@ -4,7 +4,7 @@ namespace WebApp
 {
 	public class ConfigurationDataBase : DbContext
 	{
-		public DbSet<User> user { get; set; }
+		public DbSet<User> users { get; set; }
 		public ConfigurationDataBase(DbContextOptions<ConfigurationDataBase> option) :base(option) { } 
 	}
 }

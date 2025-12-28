@@ -12,6 +12,11 @@ namespace WebApp.Models
 		public string Password { get; set; }
 		[Required(ErrorMessage = "Enter email")]
 		public string Email { get; set; }
-
+		public string phone {  get; set; }
+		public string aboutMe { get; set; }
+		public byte[] image { get; set; }
+		public string name { get; set; }
+		public string surname { get; set; }
+		
 	}
 }
