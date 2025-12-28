@@ -32,7 +32,8 @@ namespace WebApp.Controllers
 				{
 					if(user.login == model.login && user.Password == model.Password)
 					{
-						return RedirectToAction("Index", "Account", user);
+						HttpContext.Session.SetInt32("id",user.Id);
+						return RedirectToAction("Index", "Account");
 					}
 				}
 				TempData["Message"] = "Login or password incorrect";

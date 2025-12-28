@@ -1,14 +1,16 @@
 using Microsoft.EntityFrameworkCore;
 using WebApp;
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddSession(options =>
+{
+	options.IdleTimeout = TimeSpan.FromDays(1);
+});
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ConfigurationDataBase>(options =>
    options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),
 	   ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))));
 var app = builder.Build();
-
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -21,6 +23,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseSession();
 
 app.UseAuthorization();
 
