@@ -1,15 +1,67 @@
 ﻿@model User
-<div class="container text-center bg-light m-5" style="border-radius: 10%;">
-    <img class="avatar m-2" src="https://avatars.mds.yandex.net/i?id=41ecc6043febf8025ca91b18fcbebbb0fe9b8acf-9727996-images-thumbs&n=13" />
-    <div class="container">
-        <h2>Login</h2>
-        <p>@Model.login</p>
+
+<div class="container d-flex">
+    <button id="toggleSidebar" class="btn btn-light position-fixed" style="top: 60px; left: 0px; z-index: 1050; transition: left 0.3s ease;">
+        ☰ 
+    </button>
+    <div id="sidebar"
+         style="
+        width: 300px;
+        height: 100vh;
+        background: #343a40;
+        color: white;
+        position: fixed;
+        top: 55px;
+        left: -300px;
+        transition: left 0.3s ease;
+        padding: 20px;
+        z-index: 1040;
+        border-radius: 0 10px 10px 0;
+       ">
+        <h4>personal data</h4>
+        <p>resdtfyguhiojlk;'kjhgfdxsxfh'</p>
+        
     </div>
-    <form asp-controller="Account" asp-action="UploadImage" method="post" enctype="multipart/form-data">
-        <div class="mb-3">
-            <label for="ImageFile" class="form-label">Выберите изображение</label>
-            <input class="form-control" type="file" id="ImageFile" name="ImageFile" accept="image/*" required />
+    <div class="container text-center bg-light m-5" style="border-radius: 10%;">
+        <img class="avatar m-2"
+             src="https://avatars.mds.yandex.net/i?id=41ecc6043febf8025ca91b18fcbebbb0fe9b8acf-9727996-images-thumbs&n=13"
+             alt="Avatar" />
+        <div class="container">
+            <h2>@Model.name @Model.surname</h2>
         </div>
-        <button type="submit" class="btn btn-primary">Загрузить</button>
-    </form>
+        <form asp-controller="Account" asp-action="UploadImage" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="ImageFile" class="form-label">Выберите изображение</label>
+                <input class="form-control" type="file" id="ImageFile" name="ImageFile" accept="image/*" required />
+            </div>
+            <button type="submit" class="btn btn-primary">Загрузить</button>
+        </form>
+    </div>
 </div>
+
+<script>
+    const sidebar = document.getElementById('sidebar');
+    const toggleBtn = document.getElementById('toggleSidebar');
+
+    let isOpen = false;
+
+    toggleBtn.onclick = () => {
+      if (!isOpen) {
+        sidebar.style.left = '0';
+        toggleBtn.style.left = '310px';
+      } else {
+        sidebar.style.left = '-300px';
+        toggleBtn.style.left = '10px';
+      }
+      isOpen = !isOpen;
+    };
+
+    document.addEventListener('click', (e) => {
+      if (isOpen && !sidebar.contains(e.target) && !toggleBtn.contains(e.target)) {
+        sidebar.style.left = '-300px';
+        toggleBtn.style.left = '10px';
+        isOpen = false;
+      }
+    });
+</script>
+
