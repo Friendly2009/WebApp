@@ -1,8 +1,15 @@
 ﻿@model User
-<div class="text-center">
-	<h1>@Model.login</h1>
-	<p>your id: @Model.Id</p>
-	<p>your login: @Model.login</p>
-	<p>your password: @Model.Password</p>
-	<p>your email: @Model.Email</p>
+<div class="container text-center bg-light m-5" style="border-radius: 10%;">
+    <img class="avatar m-2" src="https://avatars.mds.yandex.net/i?id=41ecc6043febf8025ca91b18fcbebbb0fe9b8acf-9727996-images-thumbs&n=13" />
+    <div class="container">
+        <h2>Login</h2>
+        <p>@Model.login</p>
+    </div>
+    <form asp-controller="Account" asp-action="UploadImage" method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="ImageFile" class="form-label">Выберите изображение</label>
+            <input class="form-control" type="file" id="ImageFile" name="ImageFile" accept="image/*" required />
+        </div>
+        <button type="submit" class="btn btn-primary">Загрузить</button>
+    </form>
 </div>

@@ -28,3 +28,10 @@ body {
     .text-special:hover {
         color: white;
     }
+.avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid dimgray; /* Цвет рамки */
+}

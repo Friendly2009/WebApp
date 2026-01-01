@@ -20,6 +20,16 @@ namespace WebApp.Controllers
 			var model = UsersTable.Find(HttpContext.Session.GetInt32("id"));
 			return View(model);
 		}
-		
+		[HttpPost]
+		public async Task<IActionResult> UploadImage(IFormFile ImageFile)
+		{
+			var model = UsersTable.Find(HttpContext.Session.GetInt32("id"));
+			using var memoryStream = new MemoryStream();
+			await ImageFile.CopyToAsync(memoryStream);
+			model.image = memoryStream.ToArray();
+			UsersTable.Update(model);
+			await _context.SaveChangesAsync();
+			return RedirectToAction("Index");
+		}
 	}
 }
