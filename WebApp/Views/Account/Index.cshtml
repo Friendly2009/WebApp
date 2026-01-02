@@ -23,9 +23,10 @@
         
     </div>
     <div class="container text-center bg-light m-5" style="border-radius: 10%;">
-        <img class="avatar m-2"
-             src="https://avatars.mds.yandex.net/i?id=41ecc6043febf8025ca91b18fcbebbb0fe9b8acf-9727996-images-thumbs&n=13"
-             alt="Avatar" />
+        @{
+            var base64Img = $"data:image/png;base64,{Convert.ToBase64String(Model.image)}";
+        }
+        <img class="avatar m-2" src="@base64Img" alt="Avatar" />
         <div class="container">
             <h2>@Model.name @Model.surname</h2>
         </div>
