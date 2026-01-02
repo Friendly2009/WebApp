@@ -19,24 +19,30 @@
         border-radius: 0 10px 10px 0;
        ">
         <h4>personal data</h4>
-        <p>resdtfyguhiojlk;'kjhgfdxsxfh'</p>
+        <form asp-controller="Account" asp-action="UploadImage" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="ImageFile" class="form-label">Choose Image</label>
+                <input class="form-control" type="file" id="ImageFile" name="ImageFile" accept="image/*" required />
+            </div>
+            <button type="submit" class="btn btn-primary">Up Load</button>
+        </form>
         
     </div>
     <div class="container text-center bg-light m-5" style="border-radius: 10%;">
         @{
-            var base64Img = $"data:image/png;base64,{Convert.ToBase64String(Model.image)}";
+            if (CheckNullAvatar(Model.image))
+            {
+                <img class="avatar m-2" src="https://avatars.mds.yandex.net/i?id=8f3785330e05afb1b2e5bc170e1e9fc84e3a1a38-10702804-images-thumbs&n=13" alt="Avatar" />
+            }
+            else
+            {
+                var base64Img = $"data:image/png;base64,{Convert.ToBase64String(Model.image)}";
+                <img class="avatar m-2" src="@base64Img" alt="Avatar" />
+            }
         }
-        <img class="avatar m-2" src="@base64Img" alt="Avatar" />
         <div class="container">
             <h2>@Model.name @Model.surname</h2>
         </div>
-        <form asp-controller="Account" asp-action="UploadImage" method="post" enctype="multipart/form-data">
-            <div class="mb-3">
-                <label for="ImageFile" class="form-label">Выберите изображение</label>
-                <input class="form-control" type="file" id="ImageFile" name="ImageFile" accept="image/*" required />
-            </div>
-            <button type="submit" class="btn btn-primary">Загрузить</button>
-        </form>
     </div>
 </div>
 
@@ -65,4 +71,17 @@
       }
     });
 </script>
+@{
+    bool CheckNullAvatar(byte[] mas)
+    {
+        foreach( var b in mas)
+        {
+            if(b != 0)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+}
 
