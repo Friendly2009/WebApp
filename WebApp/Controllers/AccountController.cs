@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Net.Http.Headers;
 using WebApp.Models;
 namespace WebApp.Controllers
 {
@@ -27,6 +28,26 @@ namespace WebApp.Controllers
 			using var memoryStream = new MemoryStream();
 			await ImageFile.CopyToAsync(memoryStream);
 			model.image = memoryStream.ToArray();
+			UsersTable.Update(model);
+			await _context.SaveChangesAsync();
+			return RedirectToAction("Index");
+		}
+		[HttpPost]
+		public async Task<IActionResult> UploadName(string name, string surname)
+		{
+			var model = UsersTable.Find(HttpContext.Session.GetInt32("id"));
+			model.name = name;
+			model.surname = surname;
+			UsersTable.Update(model);
+			await _context.SaveChangesAsync();
+			return RedirectToAction("Index");
+		}
+		[HttpPost]
+		public async Task<IActionResult> UploadLog(string log, string password)
+		{
+			var model = UsersTable.Find(HttpContext.Session.GetInt32("id"));
+			model.login = log;
+			model.Password = password;
 			UsersTable.Update(model);
 			await _context.SaveChangesAsync();
 			return RedirectToAction("Index");

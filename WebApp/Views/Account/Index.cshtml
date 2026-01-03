@@ -26,6 +26,31 @@
             </div>
             <button type="submit" class="btn btn-primary">Up Load</button>
         </form>
+        <form asp-controller="Account" asp-action="UploadName" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="name" class="form-label">enter your first name</label>
+                <input value="@Model.name" class="form-control m-1" type="text" name="name" placeholder="Name" required/>
+                <label for="surname" class="form-label">enter your last name</label>
+                <input value="@Model.surname" class="form-control m-1" type="text" name="surname" placeholder="SurName" required />
+            </div>
+            <button type="submit" class="btn btn-primary">Up Load</button>
+        </form>
+        <form asp-controller="Account" asp-action="UploadLog" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="log" class="form-label">Enter new login</label>
+                <input value="@Model.login" class="form-control m-1" type="text" name="log" placeholder="Login" required />
+                <label for="password" class="form-label">Enter new password</label>
+                <input value="@Model.Password" class="form-control m-1" type="password" name="password" placeholder="Password" required />
+            </div>
+            <button type="submit" class="btn btn-primary">Up Load</button>
+        </form>
+        <form asp-controller="Account" asp-action="UploadImage" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="ImageFile" class="form-label">Choose Image</label>
+                <input class="form-control" type="file" id="ImageFile" name="ImageFile" accept="image/*" required />
+            </div>
+            <button type="submit" class="btn btn-primary">Up Load</button>
+        </form>
         
     </div>
     <div class="container text-center bg-light m-5" style="border-radius: 10%;">
@@ -86,7 +111,7 @@
 @{
     bool CheckNullAvatar(byte[] mas)
     {
-        foreach( var b in mas)
+        foreach(var b in mas)
         {
             if(b != 0)
             {
