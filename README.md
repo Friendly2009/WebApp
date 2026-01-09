@@ -39,12 +39,17 @@
   USE `MyServices` ;
 
   CREATE TABLE IF NOT EXISTS `MyServices`.`user` (
-    `id` INT NOT NULL AUTO_INCREMENT,
-    `login` VARCHAR(45) NOT NULL,
-    `password` VARCHAR(45) NOT NULL,
-    `email` varchar(255) NOT NULL,
-    PRIMARY KEY (`id`))
-  ENGINE = InnoDB;
+   `id` INT NOT NULL AUTO_INCREMENT,
+   `login` VARCHAR(255) NOT NULL,
+   `password` VARCHAR(255) NOT NULL,
+   `email` VARCHAR(255),
+   `phone` VARCHAR(50),
+   `aboutMe` TEXT,
+   `image` BLOB,
+   `name` VARCHAR(100),
+   `surname` VARCHAR(100),
+   PRIMARY KEY (id))
+   ENGINE = InnoDB;
   select * from user;
 ```
 ## 📖 Использование
