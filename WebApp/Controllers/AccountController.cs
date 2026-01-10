@@ -18,38 +18,58 @@ namespace WebApp.Controllers
 		public IActionResult Index()
 		{
 			ViewData["HeaderNav"] = true;
+			ViewBag.id = HttpContext.Session.GetInt32("id");
 			var model = UsersTable.Find(HttpContext.Session.GetInt32("id"));
 			return View(model);
 		}
 		[HttpPost]
-		public async Task<IActionResult> UploadImage(IFormFile ImageFile)
+		public IActionResult UploadImage(IFormFile ImageFile)
 		{
 			var model = UsersTable.Find(HttpContext.Session.GetInt32("id"));
 			using var memoryStream = new MemoryStream();
-			await ImageFile.CopyToAsync(memoryStream);
+			ImageFile.CopyTo(memoryStream);
 			model.image = memoryStream.ToArray();
 			UsersTable.Update(model);
-			await _context.SaveChangesAsync();
+			_context.SaveChanges();
 			return RedirectToAction("Index");
 		}
 		[HttpPost]
-		public async Task<IActionResult> UploadName(string name, string surname)
+		public IActionResult UploadName(string name, string surname)
 		{
 			var model = UsersTable.Find(HttpContext.Session.GetInt32("id"));
 			model.name = name;
 			model.surname = surname;
 			UsersTable.Update(model);
-			await _context.SaveChangesAsync();
+			_context.SaveChanges();
 			return RedirectToAction("Index");
 		}
 		[HttpPost]
-		public async Task<IActionResult> UploadLog(string log, string password)
+		public IActionResult UploadLog(string log, string password)
 		{
 			var model = UsersTable.Find(HttpContext.Session.GetInt32("id"));
 			model.login = log;
 			model.Password = password;
 			UsersTable.Update(model);
-			await _context.SaveChangesAsync();
+			_context.SaveChanges();
+			return RedirectToAction("Index");
+		}
+		[HttpPost]
+		public IActionResult UploadPhone(string phone, string Email)
+		{
+			var model = UsersTable.Find(HttpContext.Session.GetInt32("id"));
+			model.phone = phone;
+			model.Email = Email;
+			UsersTable.Update(model);
+			_context.SaveChanges();
+			return RedirectToAction("Index");
+		}
+		[HttpPost]
+		public IActionResult UploadDescription(string text)
+		{
+			var model = UsersTable.Find(HttpContext.Session.GetInt32("id"));
+			model.aboutMe = text;
+			UsersTable.Update(model);
+			_context.SaveChanges();
 			return RedirectToAction("Index");
 		}
 	}

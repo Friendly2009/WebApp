@@ -1,8 +1,9 @@
-﻿@model User
+﻿<p>@ViewBag.id</p>
+@model User
 
 <div class="container d-flex">
     <button id="toggleSidebar" class="btn btn-light position-fixed" style="top: 60px; left: 0px; z-index: 1050; transition: left 0.3s ease;">
-        ☰ 
+        ☰
     </button>
     <div id="sidebar"
          style="
@@ -29,7 +30,7 @@
         <form asp-controller="Account" asp-action="UploadName" method="post" enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="name" class="form-label">enter your first name</label>
-                <input value="@Model.name" class="form-control m-1" type="text" name="name" placeholder="Name" required/>
+                <input value="@Model.name" class="form-control m-1" type="text" name="name" placeholder="Name" required />
                 <label for="surname" class="form-label">enter your last name</label>
                 <input value="@Model.surname" class="form-control m-1" type="text" name="surname" placeholder="SurName" required />
             </div>
@@ -44,76 +45,54 @@
             </div>
             <button type="submit" class="btn btn-primary">Up Load</button>
         </form>
-        <form asp-controller="Account" asp-action="UploadImage" method="post" enctype="multipart/form-data">
+        <form asp-controller="Account" asp-action="UploadPhone" method="post" enctype="multipart/form-data">
             <div class="mb-3">
-                <label for="ImageFile" class="form-label">Choose Image</label>
-                <input class="form-control" type="file" id="ImageFile" name="ImageFile" accept="image/*" required />
+                <label for="phone" class="form-label">Enter new phone number</label>
+                <input value="@Model.phone" class="form-control m-1" type="tel" name="phone" placeholder="Phone" required />
+                <label for="Email" class="form-label">Enter new Email</label>
+                <input value="@Model.Email" class="form-control m-1" type="email" name="Email" placeholder="Email" required />
             </div>
             <button type="submit" class="btn btn-primary">Up Load</button>
         </form>
-        
+        <form asp-controller="Account" asp-action="UploadDescription" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="Description" class="form-label">Tell us about yourself</label>
+                <input value="@Model.aboutMe" class="form-control m-1" type="text" name="text" placeholder="Description" required />
+            </div>
+            <button type="submit" class="btn btn-primary">Up Load</button>
+        </form>
     </div>
     <div class="container text-center bg-light m-5" style="border-radius: 10%;">
-        @{
-            if (CheckNullAvatar(Model.image))
-            {
-                <img class="avatar m-2" src="https://avatars.mds.yandex.net/i?id=8f3785330e05afb1b2e5bc170e1e9fc84e3a1a38-10702804-images-thumbs&n=13" alt="Avatar" />
-            }
-            else
-            {
-                var base64Img = $"data:image/png;base64,{Convert.ToBase64String(Model.image)}";
-                <img class="avatar m-2" src="@base64Img" alt="Avatar" />
-            }
-        }
-        <div class="container">
-            <h2>@Model.name @Model.surname</h2>
+        <div class="card">
+            <div class="card-body">
+                <div class="text-center mb-3">
+                    @{
+                        if (CheckNullAvatar(Model.image))
+                        {
+                            <img class="avatar m-2" src="https://avatars.mds.yandex.net/i?id=8f3785330e05afb1b2e5bc170e1e9fc84e3a1a38-10702804-images-thumbs&n=13" alt="Avatar" />
+                        }
+                        else
+                        {
+                            var base64Img = $"data:image/png;base64,{Convert.ToBase64String(Model.image)}";
+                            <img class="avatar m-2" src="@base64Img" alt="Avatar" />
+                        }
+                    }
+                </div>
+                <h4 class="card-title"><span id="userName">@Model.name</span></h4>
+                <h5 class="card-subtitle mb-2 text-muted"><span id="userSurname">@Model.surname</span></h5>
+                <p class="card-text"><strong>Логин:</strong> <span id="userLogin">@Model.login</span></p>
+                <p class="card-text"><strong>Email:</strong> <span id="userEmail">@Model.Email</span></p>
+                <p class="card-text"><strong>Телефон:</strong> <span id="userPhone">@Model.Email</span></p>
+                <p class="card-text"><strong>О себе:</strong> <span id="userAboutMe">@Model.aboutMe</span></p>
+            </div>
         </div>
-        <div class="container">
-            <p>@Model.login @Model.Password</p>
-        </div>
-        <div class="container">
-            <p>@Model.Email</p>
-        </div>
-        <div class="container">
-            <p>@Model.phone</p>
-        </div>
-        <div class="container">
-            <p>@Model.aboutMe</p>
-        </div>
-    </div>
 </div>
-
-<script>
-    const sidebar = document.getElementById('sidebar');
-    const toggleBtn = document.getElementById('toggleSidebar');
-
-    let isOpen = false;
-
-    toggleBtn.onclick = () => {
-      if (!isOpen) {
-        sidebar.style.left = '0';
-        toggleBtn.style.left = '310px';
-      } else {
-        sidebar.style.left = '-300px';
-        toggleBtn.style.left = '10px';
-      }
-      isOpen = !isOpen;
-    };
-
-    document.addEventListener('click', (e) => {
-      if (isOpen && !sidebar.contains(e.target) && !toggleBtn.contains(e.target)) {
-        sidebar.style.left = '-300px';
-        toggleBtn.style.left = '10px';
-        isOpen = false;
-      }
-    });
-</script>
 @{
     bool CheckNullAvatar(byte[] mas)
     {
-        foreach(var b in mas)
+        foreach (var b in mas)
         {
-            if(b != 0)
+            if (b != 0)
             {
                 return false;
             }

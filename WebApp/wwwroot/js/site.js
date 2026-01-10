@@ -1,4 +1,23 @@
-﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿const sidebar = document.getElementById('sidebar');
+const toggleBtn = document.getElementById('toggleSidebar');
 
-// Write your JavaScript code.
+let isOpen = false;
+
+toggleBtn.onclick = () => {
+    if (!isOpen) {
+        sidebar.style.left = '0';
+        toggleBtn.style.left = '310px';
+    } else {
+        sidebar.style.left = '-300px';
+        toggleBtn.style.left = '10px';
+    }
+    isOpen = !isOpen;
+};
+
+document.addEventListener('click', (e) => {
+    if (isOpen && !sidebar.contains(e.target) && !toggleBtn.contains(e.target)) {
+        sidebar.style.left = '-300px';
+        toggleBtn.style.left = '10px';
+        isOpen = false;
+    }
+});
